@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+### BEGIN INIT INFO
+# Provides:          mailcatcher
+# Required-Start:    $local_fs $network $syslog $portmap
+# Required-Stop:     $local_fs $network $syslog $portmap
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# X-Interactive:     false
+# Short-Description: Start/stop mailcatcher daemon.
+### END INIT INFO
+# ex: ft=shell et ts=8 sw=8:
+ 
+set -e
+[[ -n "$DEBUG" ]] && set -x || set +x
+ 
+PID_FILE="/var/run/mailcatcher.pid"
+NAME="mailcatcher"
+USER="mailcatcher"
+IP={{ mailcatcher_ip }}
+SMTP_IP={{ mailcatcher_smtp_ip }}
+SMTP_PORT={{ mailcatcher_smtp_port }}
+HTTP_IP={{ mailcatcher_http_ip }}
+HTTP_PORT={{ mailcatcher_http_port }}
+PROG="/usr/local/bin/mailcatcher"
+PROG_ARGS="--ip=$IP --smtp-ip=$SMTP_IP --smtp-port=$SMTP_PORT --http-ip=$HTTP_IP --http-port=$HTTP_PORT --foreground"
+ 
+log_daemon_msg () {
+    # Dummy function to be replaced by LSB library.
+
+    echo $@
+}
+
+log_end_msg () {
+    # Dummy function to be replaced by LSB library.
+
+    if test "$1" != "0"; then
+      echo "Error with $DESCRIPTION: $NAME"
+    fi
+    return $1
+}
+ 
+pidof_mailcatcher() {
+    if [ -e "$PID_FILE" ]; then
+        local PID_IN_FILE=$(cat $PID_FILE)
+        local PID=$(ps --no-headers -p $PID_IN_FILE);
+        if [ -n "$PID" ]; then
+            echo $PID_IN_FILE
+            return 0;
+        fi  
+    fi
+ 
+    return 1
+}
+ 
+start_mailcatcher() {
+    start-stop-daemon \
+        --start \
+        --group $USER \
+        --chuid $USER \
+        --pidfile $PID_FILE \
+        --make-pidfile \
+        --background \
+        --exec "$PROG" \
+        -- \
+        $PROG_ARGS
+    return $?
+}
+ 
+stop_mailcatcher() {
+    start-stop-daemon \
+        --stop \
+        --oknodo \
+        --pidfile $PID_FILE > /dev/null 2>&1
+    return $?
+}
+ 
+case "$1" in
+    start)
+        log_daemon_msg "Starting SMTP server" "$NAME"
+        if start_mailcatcher; then
+            log_end_msg 0
+        else
+            log_end_msg 1
+        fi
+        ;;
+    stop)
+        log_daemon_msg "Stopping SMTP server" "$NAME"
+        if stop_mailcatcher; then
+            log_end_msg 0
+        else
+            log_end_msg 1
+        fi
+        ;;
+    force-reload|restart)
+        $0 stop
+        $0 start
+        ;;
+    status)
+        PID=$(pidof_mailcatcher) || true
+        if [ -n "$PID" ]; then
+            echo "$NAME is running (PID $PID)."
+            exit 0
+        else
+            echo "$NAME it not running."
+            if [ -e $PID_FILE ]; then
+                exit 1;
+            else
+                exit 3;
+            fi
+        fi 
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+        ;;
+esac

@@ -1,0 +1,14 @@
+[Unit]
+Description=Mailcatcher server
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+ExecStartPre=/bin/mkdir -p /var/log/mailcatcher
+ExecStartPre=/bin/chown -R mailcatcher /var/log/mailcatcher
+ExecStart=/bin/su - mailcatcher -c '/usr/local/bin/mailcatcher -f -v --ip={{ mailcatcher_ip }} --smtp-ip={{ mailcatcher_smtp_ip }} --smtp-port={{ mailcatcher_smtp_port }} --http-ip={{ mailcatcher_http_ip }} --http-port={{ mailcatcher_http_port }} &>>/var/log/mailcatcher/mailcatcher.log'
+ExecStop=/bin/killall -q -v mailcatcher
+
+[Install]
+WantedBy=multi-user.target

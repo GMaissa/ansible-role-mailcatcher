@@ -1,4 +1,19 @@
-- name: Install mailcatcher dependencies
+---
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- name: RedHat | Install mailcatcher dependencies
+  yum: pkg={{ item }} state=present
+  with_items:
+      - gcc
+      - gcc-c++
+      - sqlite-devel
+      - ruby-devel
+      - redhat-lsb
+      - rubygems
+  sudo: yes
+  when: ansible_os_family == 'RedHat'
+
+- name: Debian | Install mailcatcher dependencies
   apt: pkg={{ item }} state=present
   with_items:
       - build-essential
@@ -6,7 +21,9 @@
       - libsqlite3-dev
       - ruby-dev
       - ruby
+      - rubygems
   sudo: yes
+  when: ansible_os_family == 'Debian'
 
 - name: Check for mailcatcher
   stat:
@@ -19,6 +36,21 @@
   when: not mailcatcher_installed.stat.exists
 
 - name: Create upstart script for mailcatcher
-  template: src=mailcatcher.j2 dest=/etc/init/mailcatcher.conf mode=0644
+  template: src=upstart.j2 dest=/etc/init/mailcatcher.conf mode=0644
   notify:
     - restart mailcatcher
+  when: ansible_os_family == 'RedHat' and ansible_distribution_version < 7
+
+- name: Create sysvinit script for mailcatcher
+  template: src=sysvinit.j2 dest=/etc/init.d/mailcatcher mode=0755
+  notify:
+    - restart mailcatcher
+  when: ansible_os_family == 'Debian' and ansible_lsb.major_release|int < 8
+
+- name: Create systemd script for mailcatcher
+  template: src=systemd.j2 dest="{{ systemd_dir }}/mailcatcher.service" mode=0644
+  notify:
+    - restart mailcatcher
+  when: (ansible_os_family == 'Debian' and ansible_lsb.major_release|int >= 8) or
+        (ansible_os_family == 'RedHat' and ansible_distribution_version >= 7)
+
