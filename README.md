@@ -1,7 +1,9 @@
 Mailcatcher
 ========
 
-This role installs [Mailcatcher](http://mailcatcher.me) on your system and starts it upon boot time.
+This role is a fork of [Stephan Hochhaus's Mailcatcher role](https://github.com/yauh/role-mailcatcher) for ansible.
+
+It installs [Mailcatcher](http://mailcatcher.me) on your system and starts it upon boot time.
 
 Requirements
 ------------
@@ -27,5 +29,5 @@ Author Information
 ------------------
 
 Stephan Hochhaus <stephan@yauh.de>
+Guillaume Maïssa <pro.g@maissa.fr>
 
-[yauh.de](http://yauh.de)
