@@ -1,6 +1,10 @@
 ---
+dependencies: []
+
 galaxy_info:
-  author: "Stephan Hochhaus"
+  author:
+    - "Stephan Hochhaus"
+    - "Guillaume Maïssa"
   company: Freelance
   license: BSD
   min_ansible_version: 1.4
@@ -11,8 +15,16 @@ galaxy_info:
         - precise
     - name: Debian
       versions:
+        - jessie
         - wheezy
         - squeeze
+    - name: Redhat
+      versions:
+        - 7
+    - name: CentOS
+      versions:
+        - 7
   categories:
    - development
+   - mail
   
