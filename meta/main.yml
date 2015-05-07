@@ -5,6 +5,7 @@ galaxy_info:
   author:
     - "Stephan Hochhaus"
     - "Guillaume Maïssa"
+  description: Mailcatcher for Debian / CentOS/ RHEL
   company: Freelance
   license: BSD
   min_ansible_version: 1.4
