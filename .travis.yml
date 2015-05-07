@@ -1,0 +1,28 @@
+---
+language: python
+python: "2.7"
+
+env:
+  - PLAYBOOK=provisioning/playbook.yml
+  - INVENTORY=provisioning/travis
+
+install:
+  # Install Ansible.
+  - sudo pip install ansible
+
+script:
+  - "cd tests"
+  # Check the role/playbook's syntax.
+  - "ansible-playbook $PLAYBOOK -i $INVENTORY --syntax-check"
+
+  # Run the role/playbook with ansible-playbook.
+  - "ansible-playbook $PLAYBOOK -i $INVENTORY --connection=local"
+
+  # Run the role/playbook again, checking to make sure it's idempotent.
+  - >
+    ansible-playbook $PLAYBOOK -i $INVENTORY --connection=local
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+  # Tests to make sure MySQL is running and responds.
+  - curl http://localhost:1080
