@@ -3,8 +3,7 @@ language: python
 python: "2.7"
 
 env:
-  - PLAYBOOK=provisioning/playbook.yml
-  - INVENTORY=provisioning/travis
+  - PLAYBOOK=provisioning/playbook.yml INVENTORY=provisioning/travis
 
 install:
   # Install Ansible.
