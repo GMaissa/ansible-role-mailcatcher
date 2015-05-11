@@ -1,7 +1,7 @@
----
+sudo: false
 language: ruby
 rvm:
-  - 1.9.3
+  - 2.1.5
 
 env:
   - PLAYBOOK=provisioning/playbook.yml INVENTORY=provisioning/travis
@@ -11,6 +11,7 @@ install:
   - sudo pip install ansible
 
 script:
+  - ruby --version
   - "cd tests"
   # Check the role/playbook's syntax.
   - "ansible-playbook $PLAYBOOK -i $INVENTORY --syntax-check"
