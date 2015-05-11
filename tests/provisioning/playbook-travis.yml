@@ -1,0 +1,26 @@
+---
+- hosts: all
+  roles:
+    - mailcatcher
+  tasks:
+    - name: RedHat | Install iptables service
+      yum: name=iptables-services
+           state=present
+      when: ansible_os_family == "RedHat"
+
+    - name: RedHat | insert iptables rule for httpd
+      lineinfile: dest=/etc/sysconfig/iptables
+                  create=yes
+                  state=present
+                  regexp="{{ item }}"
+                  insertafter="^:OUTPUT "
+                  line="-A INPUT -p tcp --dport {{ item }} -j ACCEPT"
+      with_items:
+        - 1025
+        - 1080
+      notify: iptables-restart
+      when: ansible_os_family == "RedHat"
+
+  handlers:
+    - name: iptables-restart
+      service: name=iptables state=restarted
