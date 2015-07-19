@@ -7,14 +7,13 @@ env:
   - PLAYBOOK=provisioning/playbook-travis.yml INVENTORY=provisioning/travis
 
 before_install:
-  - rvm install 2.0.0
+  - sudo apt-get remove ruby
 
 install:
   # Install Ansible.
   - sudo pip install ansible
 
 script:
-  - ruby --version
   - "cd tests"
   # Check the role/playbook's syntax.
   - "ansible-playbook $PLAYBOOK -i $INVENTORY --syntax-check"
