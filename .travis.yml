@@ -7,7 +7,7 @@ env:
   - PLAYBOOK=provisioning/playbook-travis.yml INVENTORY=provisioning/travis
 
 before_install:
-  - sudo rvm install 2.0.0
+  - rvm install 2.0.0
 
 install:
   # Install Ansible.
