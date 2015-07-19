@@ -1,0 +1,5 @@
+---
+
+- src: https://github.com/GMaissa/ansible-role-common
+  version: master
+  name: gmaissa.common

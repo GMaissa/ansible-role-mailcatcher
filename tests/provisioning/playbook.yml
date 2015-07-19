@@ -2,6 +2,7 @@
 - hosts: all
   sudo: yes
   roles:
+    - gmaissa.common
     - mailcatcher
   tasks:
     - name: RedHat | Install iptables service

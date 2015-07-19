@@ -10,7 +10,6 @@
       - ruby-devel
       - redhat-lsb
       - rubygems
-  sudo: yes
   when: ansible_os_family == 'RedHat'
 
 - name: Debian | Install mailcatcher dependencies
@@ -22,17 +21,15 @@
       - ruby-dev
       - ruby
       - rubygems
-  sudo: yes
   when: ansible_os_family == 'Debian'
 
-- name: Check for mailcatcher
+- name: Check if mailcatcher not already installed
   stat:
     path=/usr/local/bin/mailcatcher
   register: mailcatcher_installed
 
 - name: Install Mailcatcher
   command: gem install mailcatcher
-  sudo: yes
   when: not mailcatcher_installed.stat.exists
 
 - name: Create upstart script for mailcatcher
@@ -53,4 +50,3 @@
     - restart mailcatcher
   when: (ansible_os_family == 'Debian' and ansible_lsb.major_release|int >= 8) or
         (ansible_os_family == 'RedHat' and ansible_distribution_version >= 7)
-

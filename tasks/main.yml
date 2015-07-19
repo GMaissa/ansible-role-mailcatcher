@@ -1,3 +1,10 @@
 ---
-- include: create_user.yml
-- include: install_mailcatcher.yml
+- include: setup.yml
+  tags:
+    - mailcatcher
+    - setup
+
+- include: install.yml
+  tags:
+    - mailcatcher
+    - install
