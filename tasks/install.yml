@@ -18,9 +18,9 @@
       - build-essential
       - sqlite3
       - libsqlite3-dev
-      - ruby-dev
       - ruby1.9.3
       - rubygems
+      - ruby-dev
   when: ansible_os_family == 'Debian'
 
 - name: Check ruby version
