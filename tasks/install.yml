@@ -19,7 +19,7 @@
       - sqlite3
       - libsqlite3-dev
       - ruby-dev
-      - ruby
+      - ruby1.9.3
       - rubygems
   when: ansible_os_family == 'Debian'
 
