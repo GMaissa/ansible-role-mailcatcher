@@ -25,9 +25,6 @@
 
 - name: Check ruby version
   command: ruby --version
-  register: ruby_version
-
-- debug: var=ruby_version
 
 - name: Check if mailcatcher not already installed
   stat:
@@ -48,7 +45,9 @@
   template: src=sysvinit.j2 dest=/etc/init.d/mailcatcher mode=0755
   notify:
     - restart mailcatcher
-  when: ansible_os_family == 'Debian' and ansible_lsb.major_release|int < 8
+  when: (ansible_distribution == 'Debian' and ansible_lsb.major_release|int < 8) or
+        (ansible_distribution == 'Ubuntu' and ansible_distribution_version|int <= '13')
+
 
 - name: Create systemd script for mailcatcher
   template: src=systemd.j2 dest="{{ systemd_dir }}/mailcatcher.service" mode=0644
