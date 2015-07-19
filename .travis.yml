@@ -7,7 +7,7 @@ env:
   - PLAYBOOK=provisioning/playbook-travis.yml INVENTORY=provisioning/travis
 
 before_install:
-  - rvm install 2.0.0
+  - sudo rvm install 2.0.0
 
 install:
   # Install Ansible.
@@ -20,14 +20,14 @@ script:
   - "ansible-playbook $PLAYBOOK -i $INVENTORY --syntax-check"
 
   # Run the role/playbook with ansible-playbook.
-  - "ansible-playbook $PLAYBOOK -i $INVENTORY --connection=local"
+  - "ansible-playbook $PLAYBOOK -i $INVENTORY --connection=local --sudo"
 
   # Run the role/playbook again, checking to make sure it's idempotent.
   - >
-    ansible-playbook $PLAYBOOK -i $INVENTORY --connection=local
+    ansible-playbook $PLAYBOOK -i $INVENTORY --connection=local --sudo
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
-    
+
   # Tests to make sure Mailcatcher is running and responds.
   - curl http://localhost:1080
