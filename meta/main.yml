@@ -3,25 +3,18 @@ dependencies: []
 
 galaxy_info:
   author:
-    - "Stephan Hochhaus"
     - "Guillaume Maïssa"
-  description: Mailcatcher for Debian / CentOS / RHEL
+  description: Mailcatcher for Debian / RHEL OS families
   company: Freelance
   license: BSD
   min_ansible_version: 1.4
   platforms:
     - name: Debian
       versions:
-        - jessie
         - wheezy
-        - squeeze
-    - name: Redhat
-      versions:
-        - 7
-    - name: CentOS
+    - name: EL
       versions:
         - 7
   categories:
    - development
    - mail
-  
