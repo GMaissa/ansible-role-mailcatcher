@@ -7,7 +7,7 @@ env:
   - PLAYBOOK=provisioning/playbook-travis.yml INVENTORY=provisioning/travis
 
 before_install:
-  - sudo apt-get remove ruby
+  - sudo apt-get remove ruby rubygems
 
 install:
   # Install Ansible.
