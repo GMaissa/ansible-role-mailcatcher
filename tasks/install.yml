@@ -19,8 +19,8 @@
       - sqlite3
       - libsqlite3-dev
       - ruby1.9.3
-      - rubygems
-      - ruby-dev
+      - rubygems1.9.1
+      - ruby1.9.1-dev
   when: ansible_os_family == 'Debian'
   register: pkg_install
 
