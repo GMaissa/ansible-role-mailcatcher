@@ -27,7 +27,7 @@
   command: ruby --version
   register: ruby_version
 
-- debug: msg="Ruby version : {{ ruby_version }}"
+- debug: var=ruby_version
 
 - name: Check if mailcatcher not already installed
   stat:
