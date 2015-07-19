@@ -1,5 +1,6 @@
 Mailcatcher
 ========
+[![Galaxy](http://img.shields.io/badge/galaxy-GMaissa.mailcatcher-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/3686)
 
 This role is a fork of [Stephan Hochhaus's Mailcatcher role](https://github.com/yauh/role-mailcatcher) for ansible.
 
