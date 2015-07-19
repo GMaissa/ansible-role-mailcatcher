@@ -22,6 +22,9 @@
       - rubygems
       - ruby-dev
   when: ansible_os_family == 'Debian'
+  register: pkg_install
+
+- debug: var=pkg_install
 
 - name: Check ruby version
   command: ruby --version
