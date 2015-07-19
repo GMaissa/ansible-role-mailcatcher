@@ -21,10 +21,11 @@
       - ruby1.9.3
       - rubygems1.9.1
       - ruby1.9.1-dev
+      - ruby-switch
   when: ansible_os_family == 'Debian'
-  register: pkg_install
 
-- debug: var=pkg_install
+- name: Using Ruby version 1.9.3
+  command: ruby-switch --set ruby1.9.1
 
 - name: Check ruby version
   command: ruby --version
