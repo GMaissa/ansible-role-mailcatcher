@@ -1,9 +1,13 @@
-language: ruby
-rvm:
-  - 2.1.5
+---
+sudo: required
+language: python
+python: "2.7"
 
 env:
   - PLAYBOOK=provisioning/playbook-travis.yml INVENTORY=provisioning/travis
+
+before_install:
+  - rvm install 2.0.0
 
 install:
   # Install Ansible.
@@ -24,5 +28,6 @@ script:
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
-  # Tests to make sure MySQL is running and responds.
+    
+  # Tests to make sure Mailcatcher is running and responds.
   - curl http://localhost:1080
