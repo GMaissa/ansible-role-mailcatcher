@@ -23,6 +23,12 @@
       - rubygems
   when: ansible_os_family == 'Debian'
 
+- name: Check ruby version
+  command: ruby --version
+  register: ruby_version
+
+- debug: msg="Ruby version : {{ ruby_version }}"
+
 - name: Check if mailcatcher not already installed
   stat:
     path=/usr/local/bin/mailcatcher
