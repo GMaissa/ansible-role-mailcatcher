@@ -23,9 +23,6 @@
       - ruby1.9.1-dev
   when: ansible_os_family == 'Debian'
 
-- name: Check ruby version
-  command: ruby --version
-
 - name: Check if mailcatcher not already installed
   stat:
     path=/usr/local/bin/mailcatcher
