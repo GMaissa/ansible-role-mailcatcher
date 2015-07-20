@@ -43,12 +43,13 @@
   notify:
     - restart mailcatcher
   when: (ansible_distribution == 'Debian' and ansible_lsb.major_release|int < 8) or
-        (ansible_distribution == 'Ubuntu' and ansible_distribution_version|int <= '13')
+        (ansible_distribution == 'Ubuntu' and ansible_distribution_version|int <= '14')
 
 
 - name: Create systemd script for mailcatcher
   template: src=systemd.j2 dest="{{ systemd_dir }}/mailcatcher.service" mode=0644
   notify:
     - restart mailcatcher
-  when: (ansible_os_family == 'Debian' and ansible_lsb.major_release|int >= 8) or
+  when: (ansible_distribution == 'Debian' and ansible_lsb.major_release|int >= 8) or
+        (ansible_distribution == 'Ubuntu' and ansible_distribution_version|int >= '15') or
         (ansible_os_family == 'RedHat' and ansible_distribution_version >= 7)
