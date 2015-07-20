@@ -2,8 +2,8 @@
 - hosts: all
   sudo: yes
   roles:
-    - gmaissa.common
-    - mailcatcher
+    - GMaissa.common
+    - ansible-role-mailcatcher
   tasks:
     - name: RedHat | Install iptables service
       yum: name=iptables-services

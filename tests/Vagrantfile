@@ -23,8 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.groups     = {
         "dev"          => ["mailcatcher-dev"],
       }
-      ansible.playbook   = "provisioning/playbook.yml"
+      ansible.playbook   = "playbook.yml"
     end
   end
 end
-
