@@ -3,7 +3,7 @@ Mailcatcher
 [![Travis branch](https://img.shields.io/travis/GMaissa/ansible-role-mailcatcher/master.svg)](https://travis-ci.org/GMaissa/ansible-role-mailcatcher)
 [![Galaxy](http://img.shields.io/badge/galaxy-GMaissa.mailcatcher-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/3686)
 
-This role is a fork of [Stephan Hochhaus's Mailcatcher role](https://github.com/yauh/role-mailcatcher) for ansible.
+This Ansible Mailcatcher role is a fork of [Stephan Hochhaus' one](https://github.com/yauh/role-mailcatcher), in order to add support for RHEL / Centos.
 
 It installs [Mailcatcher](http://mailcatcher.me) on your system and starts it upon boot time.
 
@@ -30,5 +30,4 @@ BSD
 Author Information
 ------------------
 
-Stephan Hochhaus <stephan@yauh.de>
 Guillaume Maïssa <pro.g@maissa.fr>
