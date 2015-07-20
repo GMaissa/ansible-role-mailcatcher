@@ -22,6 +22,8 @@
       - rubygems1.9.1
       - ruby1.9.1-dev
   when: ansible_os_family == 'Debian'
+  register: mailcatcher_dependencies_install
+  changed_when: mailcatcher_dependencies_install.stdout.find('No packages will be installed, upgraded, or removed') == false
 
 - name: Check if mailcatcher not already installed
   stat:
