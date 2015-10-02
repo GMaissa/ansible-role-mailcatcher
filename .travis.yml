@@ -4,7 +4,10 @@ language: python
 python: "2.7"
 
 env:
-  - PLAYBOOK=tests/playbook-travis.yml INVENTORY=tests/inventory
+  - ANSIBLE_VERSION=1.6 PLAYBOOK=tests/playbook-travis.yml INVENTORY=tests/inventory-travis
+  - ANSIBLE_VERSION=1.7 PLAYBOOK=tests/playbook-travis.yml INVENTORY=tests/inventory-travis
+  - ANSIBLE_VERSION=1.8 PLAYBOOK=tests/playbook-travis.yml INVENTORY=tests/inventory-travis
+  - ANSIBLE_VERSION=1.9.2 PLAYBOOK=tests/playbook-travis.yml INVENTORY=tests/inventory-travis
 
 before_install:
   - sudo apt-get remove ruby rubygems ruby-dev libruby1.8 ruby1.8 ruby1.8-dev rubygems1.8
@@ -13,8 +16,7 @@ before_install:
   - sudo apt-get install -qq python-apt python-pycurl
 
 install:
-  # Install Ansible.
-  - pip install ansible>=1.6
+  - pip install ansible==$ANSIBLE_VERSION
 
 before_script:
   # Add ansible.cfg to pick up roles path.
