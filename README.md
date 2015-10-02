@@ -15,11 +15,11 @@ No external requirements exist to this role.
 Role Variables
 --------------
 
-    mailcatcher_ip: 0.0.0.0       # Set the ip address of both servers
-    mailcatcher_smtp_ip: 0.0.0.0  # Set the ip address of the smtp server
-    mailcatcher_smtp_port: 1025   # Set the ip address of the smtp server
-    mailcatcher_http_ip: 0.0.0.0  # Set the ip address of the http server
-    mailcatcher_http_port: 1080   # Set the port address of the http server
+    mailcatcher_ip: 0.0.0.0       # Set the ip address for both smtp server and web interface
+    mailcatcher_smtp_ip: 0.0.0.0  # Set the ip address for smtp server
+    mailcatcher_smtp_port: 1025   # Set the port for smtp server
+    mailcatcher_http_ip: 0.0.0.0  # Set the ip address for web interface
+    mailcatcher_http_port: 1080   # Set the port for web interface
 
 
 License
