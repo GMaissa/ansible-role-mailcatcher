@@ -20,6 +20,7 @@ Role Variables
     mailcatcher_smtp_port: 1025   # Set the port for smtp server
     mailcatcher_http_ip: 0.0.0.0  # Set the ip address for web interface
     mailcatcher_http_port: 1080   # Set the port for web interface
+    mailcatcher_autostart: true   # Define if mailcatcher should be started after install
 
 
 License

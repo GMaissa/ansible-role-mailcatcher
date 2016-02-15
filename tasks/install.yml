@@ -58,6 +58,7 @@
 
 - name: Enable mailcatcher service
   service: name=mailcatcher state=started enabled=yes
-  when: (ansible_distribution == 'Debian' and ansible_lsb.major_release|int >= 8) or
+  when: ((ansible_distribution == 'Debian' and ansible_lsb.major_release|int >= 8) or
         (ansible_distribution == 'Ubuntu' and ansible_distribution_version|int >= '15') or
-        (ansible_os_family == 'RedHat' and ansible_distribution_version >= 7)
+        (ansible_os_family == 'RedHat' and ansible_distribution_version >= 7)) and
+        mailcatcher_autostart|bool
